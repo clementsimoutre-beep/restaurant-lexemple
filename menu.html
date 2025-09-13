@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Restaurant L’Exemple</title>
+  <!-- Polices -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;}
+    body {
+      font-family: 'Lato', sans-serif;
+      color: #fdfdfd;
+      background: linear-gradient(135deg, #5a3a2d, #7a4e37, #a67856);
+      line-height: 1.7;
+      overflow-x: hidden;
+      padding-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    /* NAV BAR */
+    nav {
+      background: #111;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav ul {list-style: none; display: flex; gap: 30px; margin: 0;}
+    nav ul li a {
+      color: #f5f5f5;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {color: #d4af37;}
+    .btn-reserve {
+      background: transparent;
+      color: #d4af37;
+      padding: 8px 18px;
+      border: 2px solid #d4af37;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .btn-reserve:hover {
+      background: #d4af37;
+      color: #111;
+      box-shadow: 0 0 12px rgba(212,175,55,0.6);
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #3a2520, #5a3a2d);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      margin: 0;
+      color: #d4af37;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeDown 1.2s ease forwards;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* MENU SECTIONS */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .menu-grid {display: grid; gap: 40px;}
+
+    .card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(160, 120, 85, 0.25);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .card.show {opacity: 1; transform: translateY(0);}
+
+    .card img {
+      flex: 1;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+      transition: transform 0.8s ease;
+    }
+    .card img:hover {transform: scale(1.08);}
+
+    .card-content {
+      flex: 2;
+      min-width: 250px;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .card.show .card-content {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .card h3 {
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      text-align: center;
+      color: #d4af37;
+      text-transform: uppercase; /* titres en majuscules */
+      letter-spacing: 1.5px;
+    }
+
+    .card ul {list-style: none; padding: 0; margin: 0;}
+    .card ul li {
+      padding: 12px 0;
+      border-bottom: 2px solid rgba(212,175,55,0.6);
+      text-align: center;
+      font-size: 1.15rem;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    .card.show ul li {
+      animation: fadeInUp 0.6s forwards;
+    }
+    .card.show ul li:nth-child(1) {animation-delay: 0.2s;}
+    .card.show ul li:nth-child(2) {animation-delay: 0.4s;}
+    .card.show ul li:nth-child(3) {animation-delay: 0.6s;}
+    .card.show ul li:nth-child(4) {animation-delay: 0.8s;}
+    .card.show ul li:nth-child(5) {animation-delay: 1s;}
+    .card.show ul li:nth-child(6) {animation-delay: 1.2s;}
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* BOUTON RETOUR */
+    .btn-retour {
+      display: block;
+      margin: 50px auto 0;
+      background: linear-gradient(135deg, #3a2520, #5a3a2d);
+      color: #d4af37;
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      border: 2px solid #d4af37;
+      transition: all 0.3s ease;
+    }
+    .btn-retour:hover {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(212,175,55,0.6);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #111;
+      color: #d4af37;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 768px) {
+      nav {flex-direction: column; gap: 15px;}
+      nav ul {flex-direction: column; gap: 15px;}
+      .card {flex-direction: column; text-align: center;}
+      .card img {max-width: 100%;}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html#accueil">Accueil</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="index.html#philosophie">Notre philosophie</a></li>
+      <li><a href="index.html#histoire">Notre histoire</a></li>
+      <li><a href="index.html#adresse">Nous trouver</a></li>
+    </ul>
+    <a href="reservation.html" class="btn-reserve">Réserver</a>
+  </nav>
+
+  <header>
+    <h1>Notre Menu</h1>
+  </header>
+
+  <section>
+    <div class="menu-grid">
+      <div class="card entrees">
+        <img src="images/entree.jpg" alt="Entrée du restaurant">
+        <div class="card-content">
+          <h3>Entrées</h3>
+          <ul>
+            <li>Soupe à l’oignon gratinée — 8€</li>
+            <li>Carpaccio de bœuf — 10€</li>
+            <li>Salade de chèvre chaud — 9€</li>
+            <li>Tartare de saumon — 12€</li>
+            <li>Velouté de potiron — 7€</li>
+            <li>Terrine de foie gras maison — 14€</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card plats">
+        <div class="card-content">
+          <h3>Plats</h3>
+          <ul>
+            <li>Magret de canard au miel — 22€</li>
+            <li>Filet de bar grillé — 24€</li>
+            <li>Risotto aux champignons — 18€</li>
+            <li>Entrecôte sauce béarnaise — 26€</li>
+            <li>Poulet fermier rôti — 20€</li>
+            <li>Linguine aux fruits de mer — 21€</li>
+          </ul>
+        </div>
+        <img src="images/plat.jpg" alt="Plat principal">
+      </div>
+
+      <div class="card desserts">
+        <img src="images/dessert.jpg" alt="Dessert gourmand">
+        <div class="card-content">
+          <h3>Desserts</h3>
+          <ul>
+            <li>Crème brûlée maison — 7€</li>
+            <li>Mousse au chocolat noir — 8€</li>
+            <li>Tarte Tatin caramélisée — 9€</li>
+            <li>Café gourmand — 10€</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="btn-retour">← Retour à l'accueil</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Restaurant L’Exemple - Tous droits réservés</p>
+  </footer>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {threshold: 0.2});
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
